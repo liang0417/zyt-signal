@@ -1,5 +1,6 @@
 # zyt-signal
 
-A deliberately minimal public signal page.
+A deliberately minimal public signal page for `LSB / ZYT`.
 
-Do not add personal names, photos, private messages, precise dates, addresses, or credentials here.
+Public safety boundary: do not add personal names, photos, private messages,
+precise dates, addresses, or credentials here.
