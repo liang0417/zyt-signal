@@ -16,6 +16,7 @@ function stageFromSequence() {
 
   if (alternating || stage === 3) {
     page.dataset.ready = "true";
+    page.dataset.unlocked = "true";
   }
 }
 
