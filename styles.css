@@ -157,8 +157,8 @@ footer,
 .butterfly {
   position: absolute;
   inset: 42px 76px;
-  opacity: 0;
-  transform: scale(0.78);
+  opacity: 0.18;
+  transform: scale(0.82);
   transition: opacity 700ms ease, transform 900ms ease;
 }
 
@@ -266,8 +266,8 @@ h1 {
   color: var(--muted);
   font-size: 0.72rem;
   letter-spacing: 0.12em;
-  opacity: 0;
-  transform: translateY(8px);
+  opacity: 0.62;
+  transform: translateY(0);
   transition: opacity 420ms ease, transform 420ms ease, color 420ms ease;
 }
 

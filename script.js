@@ -14,7 +14,7 @@ function stageFromSequence() {
 
   page.dataset.stage = String(stage);
 
-  if (alternating) {
+  if (alternating || stage === 3) {
     page.dataset.ready = "true";
   }
 }
@@ -46,7 +46,7 @@ document.querySelectorAll("[data-signal]").forEach((button) => {
 });
 
 function startHold() {
-  if (page.dataset.ready !== "true") return;
+  if (page.dataset.stage !== "3" && page.dataset.ready !== "true") return;
   page.dataset.holding = "true";
   holdTimer = window.setTimeout(() => {
     page.dataset.unlocked = "true";
