@@ -83,6 +83,19 @@ footer,
   position: relative;
 }
 
+.signal-field::after {
+  content: "CYBER BUTTERFLY / STANDBY";
+  position: absolute;
+  left: 50%;
+  bottom: -9px;
+  color: rgba(114, 242, 209, 0.66);
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.18em;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
 .orbit {
   position: absolute;
   inset: 30px 24px;
@@ -140,6 +153,7 @@ footer,
   cursor: pointer;
   touch-action: manipulation;
   transform: translate(-50%, -50%);
+  z-index: 1;
 }
 
 .core span {
@@ -156,46 +170,190 @@ footer,
 
 .butterfly {
   position: absolute;
-  inset: 42px 76px;
-  opacity: 0.18;
-  transform: scale(0.82);
-  transition: opacity 700ms ease, transform 900ms ease;
+  left: 50%;
+  top: 50%;
+  width: 176px;
+  height: 132px;
+  opacity: 0.86;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.92);
+  filter: drop-shadow(0 0 16px rgba(114, 242, 209, 0.2));
+  transition: opacity 700ms ease, transform 900ms ease, filter 900ms ease;
+  z-index: 2;
 }
 
-.butterfly i,
-.butterfly b {
+.butterfly::before,
+.butterfly::after {
+  content: "";
+  position: absolute;
+  top: 24px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow:
+    0 0 10px currentColor,
+    12px 44px 0 -1px currentColor,
+    -4px 82px 0 -1px currentColor;
+  color: var(--cyan);
+  opacity: 0.7;
+  animation: particle-pulse 2.8s ease-in-out infinite;
+}
+
+.butterfly::before {
+  left: 1px;
+}
+
+.butterfly::after {
+  right: 1px;
+  color: var(--violet);
+  background: var(--violet);
+  animation-delay: -1.4s;
+}
+
+.butterfly .wing,
+.butterfly-body {
   position: absolute;
   display: block;
 }
 
-.butterfly i {
-  width: 80px;
-  height: 104px;
-  top: 7px;
-  border: 1px solid;
-  border-radius: 80% 18% 80% 22%;
-  filter: drop-shadow(0 0 18px currentColor);
+.butterfly .wing {
+  border: 1px solid currentColor;
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 24px rgba(114, 242, 209, 0.12),
+    0 0 16px rgba(114, 242, 209, 0.22);
 }
 
-.butterfly i:first-child {
-  right: 50%;
+.butterfly .wing::before,
+.butterfly .wing::after {
+  content: "";
+  position: absolute;
+}
+
+.butterfly .wing::before {
+  inset: 12px;
+  border: 1px solid currentColor;
+  border-radius: inherit;
+  opacity: 0.42;
+}
+
+.butterfly .wing::after {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 12px currentColor;
+  opacity: 0.82;
+}
+
+.butterfly .wing-left {
+  right: calc(50% + 4px);
   color: var(--cyan);
-  transform: rotate(-28deg);
+  transform-origin: right center;
 }
 
-.butterfly i:nth-child(2) {
-  left: 50%;
+.butterfly .wing-right {
+  left: calc(50% + 4px);
   color: var(--violet);
-  transform: scaleX(-1) rotate(-28deg);
+  transform-origin: left center;
 }
 
-.butterfly b {
-  left: calc(50% - 1px);
-  top: 26px;
-  width: 2px;
+.butterfly .wing-upper {
+  top: 4px;
+  width: 72px;
+  height: 79px;
+  border-radius: 78% 22% 64% 36%;
+}
+
+.butterfly .wing-upper.wing-left {
+  transform: rotate(-24deg);
+  animation: wing-upper-left 3.2s ease-in-out infinite;
+}
+
+.butterfly .wing-upper.wing-right {
+  border-radius: 22% 78% 36% 64%;
+  transform: rotate(24deg);
+  animation: wing-upper-right 3.2s ease-in-out infinite;
+}
+
+.butterfly .wing-upper::after {
+  top: 22px;
+}
+
+.butterfly .wing-upper.wing-left::after {
+  right: 20px;
+}
+
+.butterfly .wing-upper.wing-right::after {
+  left: 20px;
+}
+
+.butterfly .wing-lower {
+  top: 72px;
+  width: 56px;
+  height: 48px;
+  border-radius: 62% 32% 74% 26%;
+}
+
+.butterfly .wing-lower.wing-left {
+  transform: rotate(18deg);
+  animation: wing-lower-left 3.2s ease-in-out infinite;
+}
+
+.butterfly .wing-lower.wing-right {
+  border-radius: 32% 62% 26% 74%;
+  transform: rotate(-18deg);
+  animation: wing-lower-right 3.2s ease-in-out infinite;
+}
+
+.butterfly .wing-lower::after {
+  bottom: 12px;
+}
+
+.butterfly .wing-lower.wing-left::after {
+  right: 14px;
+}
+
+.butterfly .wing-lower.wing-right::after {
+  left: 14px;
+}
+
+.butterfly-body {
+  left: calc(50% - 3px);
+  top: 23px;
+  width: 6px;
   height: 92px;
-  background: rgba(237, 245, 242, 0.78);
-  box-shadow: 0 0 16px rgba(237, 245, 242, 0.45);
+  border-radius: 70% 70% 45% 45%;
+  background: linear-gradient(var(--text), var(--cyan) 46%, var(--violet));
+  box-shadow:
+    0 0 12px rgba(237, 245, 242, 0.8),
+    0 0 24px rgba(114, 242, 209, 0.5);
+}
+
+.butterfly-body::before,
+.butterfly-body::after {
+  content: "";
+  position: absolute;
+  top: -20px;
+  width: 32px;
+  height: 28px;
+  border-top: 1px solid;
+  opacity: 0.82;
+}
+
+.butterfly-body::before {
+  right: 3px;
+  border-color: var(--cyan);
+  border-radius: 90% 0 0;
+  transform: rotate(18deg);
+}
+
+.butterfly-body::after {
+  left: 3px;
+  border-color: var(--violet);
+  border-radius: 0 90% 0 0;
+  transform: rotate(-18deg);
 }
 
 .pair {
@@ -337,7 +495,22 @@ footer {
 .signal-page[data-unlocked="true"] .butterfly,
 .signal-page[data-unlocked="true"] .secret {
   opacity: 1;
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.signal-page[data-unlocked="true"] .butterfly {
+  filter:
+    drop-shadow(0 0 22px rgba(114, 242, 209, 0.5))
+    drop-shadow(0 0 30px rgba(167, 139, 250, 0.34));
+}
+
+.signal-page[data-unlocked="true"] .secret {
   transform: translateY(0) scale(1);
+}
+
+.signal-page[data-unlocked="true"] .signal-field::after {
+  content: "CYBER BUTTERFLY / SIGNAL MERGED";
+  color: var(--text);
 }
 
 .signal-page[data-unlocked="true"] h1 {
@@ -355,6 +528,31 @@ footer {
   }
 }
 
+@keyframes wing-upper-left {
+  0%, 100% { transform: rotate(-24deg) scaleX(1); }
+  50% { transform: rotate(-15deg) scaleX(0.88); }
+}
+
+@keyframes wing-upper-right {
+  0%, 100% { transform: rotate(24deg) scaleX(1); }
+  50% { transform: rotate(15deg) scaleX(0.88); }
+}
+
+@keyframes wing-lower-left {
+  0%, 100% { transform: rotate(18deg) scaleX(1); }
+  50% { transform: rotate(11deg) scaleX(0.9); }
+}
+
+@keyframes wing-lower-right {
+  0%, 100% { transform: rotate(-18deg) scaleX(1); }
+  50% { transform: rotate(-11deg) scaleX(0.9); }
+}
+
+@keyframes particle-pulse {
+  0%, 100% { opacity: 0.36; transform: translateY(0); }
+  50% { opacity: 0.9; transform: translateY(-6px); }
+}
+
 @media (max-width: 560px) {
   body {
     overflow-y: auto;
@@ -367,10 +565,6 @@ footer {
 
   .signal-field {
     margin-bottom: 22px;
-  }
-
-  .butterfly {
-    inset: 34px 42px;
   }
 
   h1 {
