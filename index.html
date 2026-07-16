@@ -8,57 +8,63 @@
       content="A quiet public signal page for LSB and ZYT."
     />
     <title>LSB / ZYT Signal</title>
-    <link rel="stylesheet" href="./styles.css?v=responsive-clicks-1" />
+    <link rel="stylesheet" href="./styles.css?v=memory-node-01" />
   </head>
   <body>
-    <main class="signal-page" data-stage="0">
+    <main class="signal-page" data-stage="0" data-memory="0">
       <section class="stage" aria-label="LSB and ZYT signal">
-        <p class="eyebrow">QUIET SIGNAL / 00.17</p>
+        <header class="memory-header">
+          <p class="eyebrow">
+            QUIET SIGNAL / <span data-memory-status>MEMORY 00 OF 01</span>
+          </p>
+          <div class="memory-progress" aria-hidden="true"><span></span></div>
+        </header>
 
-        <div class="signal-field" aria-hidden="true">
-          <div class="orbit orbit-lsb"></div>
-          <div class="orbit orbit-zyt"></div>
-          <button class="core" type="button" aria-label="signal core">
-            <span></span>
-          </button>
-          <div class="butterfly">
-            <i class="wing wing-upper wing-left"></i>
-            <i class="wing wing-upper wing-right"></i>
-            <i class="wing wing-lower wing-left"></i>
-            <i class="wing wing-lower wing-right"></i>
-            <b class="butterfly-body"></b>
+        <div class="memory-grid">
+          <div class="signal-column">
+            <div class="signal-field">
+              <div class="orbit orbit-lsb" aria-hidden="true"></div>
+              <div class="orbit orbit-zyt" aria-hidden="true"></div>
+              <button class="core" type="button" aria-label="释放第一段记忆">
+                <span></span>
+              </button>
+              <div class="butterfly" aria-hidden="true">
+                <i class="wing wing-upper wing-left"></i>
+                <i class="wing wing-upper wing-right"></i>
+                <i class="wing wing-lower wing-left"></i>
+                <i class="wing wing-lower wing-right"></i>
+                <b class="butterfly-body"></b>
+              </div>
+            </div>
+
+            <div class="pair" aria-label="signal controls">
+              <button class="mark mark-lsb" type="button" data-signal="LSB">
+                LSB
+              </button>
+              <span class="divider">/</span>
+              <button class="mark mark-zyt" type="button" data-signal="ZYT">
+                ZYT
+              </button>
+            </div>
+
+            <p class="memory-hint" data-memory-hint>
+              轻触蝴蝶，释放第一段记忆
+            </p>
           </div>
+
+          <article class="memory-panel" aria-live="polite" aria-hidden="true">
+            <p class="memory-index">01 / ORIGIN</p>
+            <h1>佛陀做媒</h1>
+            <p class="memory-origin">缘起 ·《悉达多》</p>
+            <blockquote>“你怎么被拉黑了”</blockquote>
+            <p class="memory-caption">一句话成为信号，故事从这里开始。</p>
+          </article>
         </div>
-
-        <div class="pair" aria-label="signal controls">
-          <button class="mark mark-lsb" type="button" data-signal="LSB">
-            LSB
-          </button>
-          <span class="divider">/</span>
-          <button class="mark mark-zyt" type="button" data-signal="ZYT">
-            ZYT
-          </button>
-        </div>
-
-        <h1>Some signals are meant to be understood quietly.</h1>
-        <p class="lede">
-          公开的一页，只保留可以被看见的部分。书、城市、未来，都藏在同一束信号里。
-        </p>
-
-        <div class="fragments" aria-live="polite">
-          <p class="fragment" data-fragment="0">BOOK / 当下的力量</p>
-          <p class="fragment" data-fragment="1">COORD / 深圳 ⇄ 成都</p>
-          <p class="fragment" data-fragment="2">FUTURE / 相拥</p>
-        </div>
-
-        <p class="secret" aria-live="polite">
-          等两束信号重合，答案就是相拥。
-        </p>
       </section>
     </main>
 
     <button class="sound" type="button" aria-pressed="false">sound</button>
     <footer>© 2026 Liangshanbobo · LSB / ZYT · Built as a quiet signal</footer>
-    <script src="./script.js?v=responsive-clicks-1"></script>
+    <script src="./script.js?v=memory-node-01"></script>
   </body>
 </html>
