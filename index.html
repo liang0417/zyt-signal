@@ -8,7 +8,7 @@
       content="A quiet public signal page for LSB and ZYT."
     />
     <title>LSB / ZYT Signal</title>
-    <link rel="stylesheet" href="./styles.css?v=memory-sketch-3" />
+    <link rel="stylesheet" href="./styles.css?v=bgm-1" />
   </head>
   <body>
     <main class="signal-page" data-stage="0" data-memory="0">
@@ -49,6 +49,15 @@
 
             <p class="memory-hint" data-memory-hint>
               轻触蝴蝶，释放第一段记忆
+            </p>
+            <p class="bgm-credit" aria-live="polite">
+              <span>BGM /</span>
+              <a
+                href="https://soundcloud.com/msftt-o/ascended-vibrations"
+                target="_blank"
+                rel="noreferrer"
+              >Ascended Vibrations · ¿Téo?</a>
+              <span data-bgm-status>standby</span>
             </p>
           </div>
 
@@ -124,8 +133,22 @@
       </section>
     </main>
 
-    <button class="sound" type="button" aria-pressed="false">sound</button>
+    <iframe
+      id="soundcloud-player"
+      class="soundcloud-player"
+      title="Ascended Vibrations by ¿Téo? on SoundCloud"
+      allow="autoplay"
+      src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/msftt-o/ascended-vibrations&amp;color=%2372f2d1&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false&amp;visual=false"
+    ></iframe>
+    <button
+      class="sound"
+      type="button"
+      aria-label="背景音乐将在第一节点解锁后播放"
+      aria-pressed="false"
+      disabled
+    >bgm</button>
     <footer>© 2026 Liangshanbobo · LSB / ZYT · Built as a quiet signal</footer>
-    <script src="./script.js?v=memory-sketch-1"></script>
+    <script src="https://w.soundcloud.com/player/api.js"></script>
+    <script src="./script.js?v=bgm-1"></script>
   </body>
 </html>

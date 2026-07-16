@@ -4,28 +4,68 @@ const soundButton = document.querySelector(".sound");
 const memoryPanel = document.querySelector(".memory-panel");
 const memoryStatus = document.querySelector("[data-memory-status]");
 const memoryHint = document.querySelector("[data-memory-hint]");
+const bgmStatus = document.querySelector("[data-bgm-status]");
+const soundCloudPlayer = document.querySelector("#soundcloud-player");
 const signalButtons = [...document.querySelectorAll("[data-signal]")];
 let lastSignal = "ZYT";
-let audioContext;
-let soundEnabled = false;
+let bgm;
+let bgmReady = false;
+let bgmRequested = false;
+let bgmPlaying = false;
 
-function tone(frequency, duration = 0.08) {
-  if (!soundEnabled) return;
-  audioContext ||= new AudioContext();
+function updateBgmState(state) {
+  bgmStatus.textContent = state;
+  soundButton.disabled = state === "loading";
 
-  const osc = audioContext.createOscillator();
-  const gain = audioContext.createGain();
-  osc.frequency.value = frequency;
-  osc.type = "sine";
-  gain.gain.value = 0.025;
-  osc.connect(gain);
-  gain.connect(audioContext.destination);
-  osc.start();
-  gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + duration);
-  osc.stop(audioContext.currentTime + duration);
+  if (state === "playing") {
+    bgmPlaying = true;
+    soundButton.textContent = "pause";
+    soundButton.setAttribute("aria-label", "暂停背景音乐");
+    soundButton.setAttribute("aria-pressed", "true");
+    return;
+  }
+
+  bgmPlaying = false;
+  soundButton.textContent = state === "unavailable" ? "offline" : "play";
+  soundButton.setAttribute(
+    "aria-label",
+    state === "unavailable" ? "背景音乐暂时不可用" : "播放背景音乐",
+  );
+  soundButton.setAttribute("aria-pressed", "false");
+  soundButton.disabled = state === "unavailable";
+}
+
+function playBgm() {
+  bgmRequested = true;
+  soundButton.disabled = false;
+
+  if (!bgmReady) {
+    updateBgmState("loading");
+    return;
+  }
+
+  bgm.setVolume(38);
+  bgm.play();
+}
+
+if (window.SC?.Widget && soundCloudPlayer) {
+  bgm = window.SC.Widget(soundCloudPlayer);
+  bgm.bind(window.SC.Widget.Events.READY, () => {
+    bgmReady = true;
+    bgm.setVolume(38);
+    updateBgmState("ready");
+    if (bgmRequested) bgm.play();
+  });
+  bgm.bind(window.SC.Widget.Events.PLAY, () => updateBgmState("playing"));
+  bgm.bind(window.SC.Widget.Events.PAUSE, () => updateBgmState("paused"));
+  bgm.bind(window.SC.Widget.Events.FINISH, () => updateBgmState("ended"));
+  bgm.bind(window.SC.Widget.Events.ERROR, () => updateBgmState("unavailable"));
+} else {
+  updateBgmState("unavailable");
 }
 
 function revealMemory(signal, button) {
+  const firstRelease = page.dataset.memory !== "1";
   lastSignal = signal;
   page.dataset.stage = "1";
   page.dataset.memory = "1";
@@ -42,7 +82,7 @@ function revealMemory(signal, button) {
   void memoryPanel.offsetWidth;
   memoryPanel.classList.add("is-replaying");
 
-  tone(signal === "LSB" ? 392 : 494);
+  if (firstRelease) playBgm();
 }
 
 signalButtons.forEach((button) => {
@@ -57,11 +97,15 @@ signalField.addEventListener("click", () => {
   revealMemory(signal, button);
 });
 
-soundButton.addEventListener("click", async () => {
-  audioContext ||= new AudioContext();
-  if (audioContext.state === "suspended") await audioContext.resume();
-  soundEnabled = !soundEnabled;
-  soundButton.setAttribute("aria-pressed", String(soundEnabled));
-  soundButton.textContent = soundEnabled ? "sound on" : "sound";
-  tone(330);
+soundButton.addEventListener("click", () => {
+  if (!bgmReady) {
+    playBgm();
+    return;
+  }
+
+  if (bgmPlaying) {
+    bgm.pause();
+  } else {
+    playBgm();
+  }
 });

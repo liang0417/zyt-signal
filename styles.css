@@ -65,6 +65,7 @@ button {
 .memory-index,
 .memory-origin,
 .memory-hint,
+.bgm-credit,
 footer,
 .sound {
   font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
@@ -445,6 +446,34 @@ footer,
   line-height: 1.7;
 }
 
+.bgm-credit {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 500ms ease 260ms, transform 500ms ease 260ms;
+}
+
+.bgm-credit a {
+  color: var(--soft);
+  text-decoration: none;
+}
+
+.bgm-credit a:hover,
+.bgm-credit a:focus-visible {
+  color: var(--cyan);
+  outline: none;
+}
+
+.bgm-credit [data-bgm-status] {
+  color: var(--cyan);
+}
+
 .memory-panel {
   position: relative;
   min-height: 390px;
@@ -603,6 +632,20 @@ footer,
   letter-spacing: 0.12em;
 }
 
+.sound:disabled {
+  cursor: default;
+  opacity: 0.46;
+}
+
+.soundcloud-player {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
 footer {
   margin-top: 22px;
   color: #6f7b79;
@@ -617,6 +660,11 @@ footer {
 
 .signal-page[data-memory="1"] .memory-progress span {
   width: 100%;
+}
+
+.signal-page[data-memory="1"] .bgm-credit {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .signal-page[data-memory="1"] .memory-panel {
