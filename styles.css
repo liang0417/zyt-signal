@@ -81,6 +81,7 @@ footer,
   aspect-ratio: 1.65;
   margin: 0 auto 22px;
   position: relative;
+  cursor: pointer;
 }
 
 .signal-field::after {
@@ -383,6 +384,10 @@ footer,
   transform: translateY(-1px);
 }
 
+.mark.is-pressed {
+  animation: signal-click 220ms ease-out;
+}
+
 .mark-lsb {
   color: var(--cyan);
 }
@@ -517,15 +522,16 @@ footer {
   color: rgba(237, 245, 242, 0.62);
 }
 
-.signal-page[data-holding="true"] .core span {
-  opacity: 1;
-  transform: scale(1.45);
-}
-
 @keyframes scan {
   to {
     transform: translateX(100%);
   }
+}
+
+@keyframes signal-click {
+  0% { transform: translateY(-1px) scale(1); box-shadow: 0 0 0 currentColor; }
+  45% { transform: translateY(-1px) scale(0.94); box-shadow: 0 0 22px currentColor; }
+  100% { transform: translateY(-1px) scale(1); box-shadow: 0 0 0 transparent; }
 }
 
 @keyframes wing-upper-left {

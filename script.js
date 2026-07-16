@@ -1,20 +1,18 @@
 const page = document.querySelector(".signal-page");
 const core = document.querySelector(".core");
+const signalField = document.querySelector(".signal-field");
 const soundButton = document.querySelector(".sound");
 const sequence = [];
-let holdTimer = 0;
 let audioContext;
 let soundEnabled = false;
 
-function stageFromSequence() {
-  const lastSix = sequence.slice(-6).join("");
-  const alternating =
-    lastSix === "LSBZYTLSBZYTLSBZYT" || lastSix === "ZYTLSBZYTLSBZYTLSB";
-  const stage = Math.min(3, Math.floor(sequence.length / 2));
+function stageFromSequence(signal) {
+  const stage = Math.min(3, sequence.length);
 
   page.dataset.stage = String(stage);
+  page.dataset.lastSignal = signal;
 
-  if (alternating || stage === 3) {
+  if (stage === 3) {
     page.dataset.ready = "true";
     page.dataset.unlocked = "true";
   }
@@ -36,35 +34,36 @@ function tone(frequency, duration = 0.08) {
   osc.stop(audioContext.currentTime + duration);
 }
 
-document.querySelectorAll("[data-signal]").forEach((button) => {
+function registerSignal(signal, button) {
+  sequence.push(signal);
+  if (sequence.length > 10) sequence.shift();
+  stageFromSequence(signal);
+
+  button.classList.remove("is-pressed");
+  void button.offsetWidth;
+  button.classList.add("is-pressed");
+
+  tone(signal === "LSB" ? 392 : 494);
+}
+
+const signalButtons = [...document.querySelectorAll("[data-signal]")];
+
+signalButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    const signal = button.dataset.signal;
-    sequence.push(signal);
-    if (sequence.length > 10) sequence.shift();
-    stageFromSequence();
-    tone(signal === "LSB" ? 392 : 494);
+    registerSignal(button.dataset.signal, button);
   });
 });
 
-function startHold() {
-  if (page.dataset.stage !== "3" && page.dataset.ready !== "true") return;
-  page.dataset.holding = "true";
-  holdTimer = window.setTimeout(() => {
-    page.dataset.unlocked = "true";
-    page.dataset.holding = "false";
-    tone(660, 0.3);
-  }, 2000);
-}
+signalField.addEventListener("click", () => {
+  const signal = sequence.at(-1) === "LSB" ? "ZYT" : "LSB";
+  const button = signalButtons.find((item) => item.dataset.signal === signal);
+  registerSignal(signal, button);
+});
 
-function stopHold() {
-  window.clearTimeout(holdTimer);
-  page.dataset.holding = "false";
-}
-
-core.addEventListener("pointerdown", startHold);
-core.addEventListener("pointerup", stopHold);
-core.addEventListener("pointerleave", stopHold);
-core.addEventListener("pointercancel", stopHold);
+core.addEventListener("click", (event) => {
+  event.stopPropagation();
+  signalField.click();
+});
 
 soundButton.addEventListener("click", async () => {
   audioContext ||= new AudioContext();
