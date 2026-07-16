@@ -529,8 +529,9 @@ footer,
   padding-left: 20px;
   color: var(--text);
   font-family: STSong, SimSun, serif;
-  font-size: clamp(1.28rem, 2.4vw, 1.8rem);
+  font-size: clamp(1.12rem, 1.8vw, 1.3rem);
   line-height: 1.55;
+  white-space: nowrap;
 }
 
 .memory-caption {
