@@ -8,7 +8,7 @@
       content="A quiet public signal page for LSB and ZYT."
     />
     <title>LSB / ZYT Signal</title>
-    <link rel="stylesheet" href="./styles.css?v=memory-node-01" />
+    <link rel="stylesheet" href="./styles.css?v=memory-sketch-1" />
   </head>
   <body>
     <main class="signal-page" data-stage="0" data-memory="0">
@@ -56,8 +56,69 @@
             <p class="memory-index">01 / ORIGIN</p>
             <h1>佛陀做媒</h1>
             <p class="memory-origin">缘起 ·《悉达多》</p>
-            <blockquote>“你怎么被拉黑了”</blockquote>
-            <p class="memory-caption">故事从这里开始。</p>
+            <div class="memory-lower">
+              <div class="memory-dialogue">
+                <blockquote>“你怎么被拉黑了”</blockquote>
+                <p class="memory-caption">故事从这里开始。</p>
+              </div>
+
+              <svg
+                class="memory-illustration"
+                viewBox="0 0 240 170"
+                role="img"
+                aria-label="匿名帖子评论进入双向私信的简笔画"
+              >
+                <defs>
+                  <linearGradient id="memory-signal-gradient" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0" stop-color="#72f2d1" />
+                    <stop offset="1" stop-color="#a78bfa" />
+                  </linearGradient>
+                </defs>
+
+                <g class="sketch-post">
+                  <rect class="sketch-line" x="4" y="10" width="98" height="146" rx="9" />
+                  <circle class="platform-dot" cx="17" cy="24" r="4" />
+                  <path class="sketch-line" d="M28 21h39M28 28h25" />
+                  <rect class="sketch-line" x="13" y="40" width="80" height="43" rx="4" />
+                  <path class="sketch-line sketch-faint" d="m18 75 18-17 13 11 12-9 26 15" />
+                  <path class="sketch-line sketch-faint" d="M13 91h80" />
+                  <circle class="sketch-line" cx="18" cy="105" r="4" />
+                  <path class="sketch-line" d="M28 102h50M28 108h34" />
+                  <circle class="sketch-line" cx="18" cy="124" r="4" />
+                  <path class="sketch-line" d="M28 121h42M28 127h55" />
+                  <circle class="sketch-line" cx="18" cy="143" r="4" />
+                  <path class="sketch-line" d="M28 140h48M28 146h27" />
+                </g>
+
+                <path
+                  class="sketch-line signal-link"
+                  d="M103 124 C124 124 118 80 138 80"
+                />
+
+                <g class="sketch-chat">
+                  <g class="sketch-chat-frame">
+                    <rect class="sketch-line" x="138" y="18" width="98" height="138" rx="11" />
+                    <path class="sketch-line sketch-faint" d="M149 32h30M149 38h18" />
+                  </g>
+                  <g class="chat-turn chat-turn-1">
+                    <rect class="sketch-line chat-bubble chat-lsb" x="148" y="51" width="52" height="19" rx="9" />
+                    <path class="sketch-line chat-mark chat-lsb" d="M157 60h25" />
+                  </g>
+                  <g class="chat-turn chat-turn-2">
+                    <rect class="sketch-line chat-bubble chat-zyt" x="176" y="77" width="50" height="19" rx="9" />
+                    <path class="sketch-line chat-mark chat-zyt" d="M188 86h25" />
+                  </g>
+                  <g class="chat-turn chat-turn-3">
+                    <rect class="sketch-line chat-bubble chat-lsb" x="148" y="103" width="58" height="19" rx="9" />
+                    <path class="sketch-line chat-mark chat-lsb" d="M157 112h31" />
+                  </g>
+                  <g class="chat-turn chat-turn-4">
+                    <rect class="sketch-line chat-bubble chat-zyt" x="181" y="129" width="45" height="19" rx="9" />
+                    <path class="sketch-line chat-mark chat-zyt" d="M191 138h22" />
+                  </g>
+                </g>
+              </svg>
+            </div>
           </article>
         </div>
       </section>
@@ -65,6 +126,6 @@
 
     <button class="sound" type="button" aria-pressed="false">sound</button>
     <footer>© 2026 Liangshanbobo · LSB / ZYT · Built as a quiet signal</footer>
-    <script src="./script.js?v=memory-node-01"></script>
+    <script src="./script.js?v=memory-sketch-1"></script>
   </body>
 </html>

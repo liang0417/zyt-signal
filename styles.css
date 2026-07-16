@@ -515,13 +515,21 @@ footer,
   letter-spacing: 0.12em;
 }
 
+.memory-lower {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 182px;
+  align-items: end;
+  gap: 24px;
+  margin-top: 34px;
+}
+
 .memory-panel blockquote {
-  margin: 40px 0 0;
+  margin: 0;
   border-left: 1px solid rgba(114, 242, 209, 0.55);
   padding-left: 20px;
   color: var(--text);
   font-family: STSong, SimSun, serif;
-  font-size: clamp(1.35rem, 3vw, 2rem);
+  font-size: clamp(1.28rem, 2.4vw, 1.8rem);
   line-height: 1.55;
 }
 
@@ -530,6 +538,55 @@ footer,
   color: var(--soft);
   font-size: 0.86rem;
   line-height: 1.8;
+}
+
+.memory-illustration {
+  width: 100%;
+  max-width: 182px;
+  height: auto;
+  color: rgba(167, 178, 175, 0.7);
+  filter: drop-shadow(0 0 12px rgba(114, 242, 209, 0.08));
+}
+
+.sketch-line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.sketch-faint {
+  opacity: 0.46;
+}
+
+.platform-dot {
+  fill: #ff5a64;
+  filter: drop-shadow(0 0 5px rgba(255, 90, 100, 0.48));
+}
+
+.signal-link {
+  stroke: url(#memory-signal-gradient);
+  stroke-width: 1.7;
+}
+
+.chat-bubble.chat-lsb {
+  fill: rgba(114, 242, 209, 0.045);
+  stroke: var(--cyan);
+}
+
+.chat-bubble.chat-zyt {
+  fill: rgba(167, 139, 250, 0.045);
+  stroke: var(--violet);
+}
+
+.chat-mark.chat-lsb {
+  stroke: rgba(114, 242, 209, 0.58);
+}
+
+.chat-mark.chat-zyt {
+  stroke: rgba(167, 139, 250, 0.58);
 }
 
 .sound {
@@ -590,10 +647,6 @@ footer {
   transition-delay: 180ms;
 }
 
-.signal-page[data-memory="1"] .memory-panel > :nth-child(5) {
-  transition-delay: 240ms;
-}
-
 .signal-page[data-memory="1"] .butterfly {
   filter:
     drop-shadow(0 0 22px rgba(114, 242, 209, 0.5))
@@ -607,6 +660,40 @@ footer {
 
 .memory-panel.is-replaying::after {
   animation: memory-scan 620ms ease-out;
+}
+
+.memory-panel.is-replaying .sketch-line {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: sketch-draw 760ms ease-out forwards;
+}
+
+.memory-panel.is-replaying .signal-link {
+  animation-delay: 240ms;
+}
+
+.memory-panel.is-replaying .sketch-chat-frame .sketch-line {
+  animation-delay: 410ms;
+}
+
+.memory-panel.is-replaying .chat-turn-1 .sketch-line {
+  animation-delay: 520ms;
+}
+
+.memory-panel.is-replaying .chat-turn-2 .sketch-line {
+  animation-delay: 650ms;
+}
+
+.memory-panel.is-replaying .chat-turn-3 .sketch-line {
+  animation-delay: 780ms;
+}
+
+.memory-panel.is-replaying .chat-turn-4 .sketch-line {
+  animation-delay: 910ms;
+}
+
+.memory-panel.is-replaying .platform-dot {
+  animation: platform-ping 720ms ease-out both;
 }
 
 @keyframes scan {
@@ -625,6 +712,16 @@ footer {
   0% { opacity: 0; transform: translateX(-100%); }
   35% { opacity: 1; }
   100% { opacity: 0; transform: translateX(100%); }
+}
+
+@keyframes sketch-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes platform-ping {
+  0% { opacity: 0; transform: scale(0.4); transform-origin: 17px 24px; }
+  55% { opacity: 1; transform: scale(1.45); transform-origin: 17px 24px; }
+  100% { opacity: 1; transform: scale(1); transform-origin: 17px 24px; }
 }
 
 @keyframes wing-upper-left {
@@ -687,8 +784,17 @@ footer {
     font-size: clamp(2.5rem, 14vw, 4.2rem);
   }
 
-  .memory-panel blockquote {
-    margin-top: 32px;
+  .memory-lower {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    margin-top: 28px;
+  }
+
+  .memory-illustration {
+    width: min(240px, 100%);
+    max-width: none;
+    order: -1;
+    justify-self: center;
   }
 
   footer {
@@ -703,5 +809,9 @@ footer {
   *::after {
     animation: none !important;
     transition: none !important;
+  }
+
+  .memory-panel.is-replaying .sketch-line {
+    stroke-dashoffset: 0;
   }
 }
